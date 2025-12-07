@@ -64,16 +64,18 @@ const DeleteNoteController = async (req, res) => {
 
 const FetchUserNotesController = async (req, res) => {
   try {
-    const user = await UserModel.findById(req.user._id);
-    const notes = user.notes;
-    res.status(200),
-      json({
-        message: "note fetched successfully",
-        notes,
-      });
+    const { _id } = req.user;
+    const currentLoggedinUserNotes = await UserModel.findById(_id).populate(
+      "notes"
+    );
+
+    res.status(200).json({
+      message: "note fetched successfully",
+      currentLoggedinUserNotes,
+    });
   } catch (error) {
     console.log(error);
-     res.status(400).json({
+    res.status(400).json({
       message: "error in fetching note",
     });
   }
@@ -83,5 +85,5 @@ export default {
   CreateNoteController,
   UpdateNoteController,
   DeleteNoteController,
-  FetchUserNotesController
+  FetchUserNotesController,
 };
