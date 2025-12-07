@@ -12,7 +12,7 @@ const AuthMiddleware = async (req, res,next) => {
   try {
     const decoded = await jwt.verify(
       token,
-      "8a9595d9e2ed78c01480ebef20a541a4"
+      process.env.JWT_SECRET
     );
     if (!decoded) {
       return res.status(401).json({

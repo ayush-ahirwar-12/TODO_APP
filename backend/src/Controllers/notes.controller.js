@@ -29,23 +29,59 @@ const CreateNoteController = async (req, res) => {
 
 const UpdateNoteController = async (req, res) => {
   try {
-    const note_id = req.params;
+    const note_id = req.params.id;
     const { content } = req.body;
     const note = await noteModel.findByIdAndUpdate(note_id, {
       content: content,
     });
     note.save();
     res.status(200).json({
-        message:"Note updated successfully",
-        note
-    })
+      message: "Note updated successfully",
+      note: note,
+    });
   } catch (error) {
     console.log(error);
     res.status(400).json({
-        message:"Error in Updating note"
-    })
-    
+      message: "Error in Updating note",
+    });
   }
 };
 
-export default { CreateNoteController,UpdateNoteController };
+const DeleteNoteController = async (req, res) => {
+  try {
+    const note_id = req.params.id;
+    await noteModel.findByIdAndDelete(note_id);
+    res.status(200).json({
+      message: "Note deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      message: "error in deleting note",
+    });
+  }
+};
+
+const FetchUserNotesController = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.user._id);
+    const notes = user.notes;
+    res.status(200),
+      json({
+        message: "note fetched successfully",
+        notes,
+      });
+  } catch (error) {
+    console.log(error);
+     res.status(400).json({
+      message: "error in fetching note",
+    });
+  }
+};
+
+export default {
+  CreateNoteController,
+  UpdateNoteController,
+  DeleteNoteController,
+  FetchUserNotesController
+};

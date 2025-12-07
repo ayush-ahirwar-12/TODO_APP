@@ -24,7 +24,7 @@ const UserRegisterController = async (req, res) => {
     });
     const token = jwt.sign(
       { id: user._id },
-      "8a9595d9e2ed78c01480ebef20a541a4",
+      process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
     res.cookie("token", token);
@@ -58,7 +58,7 @@ try{  const { email, password } = req.body;
         message:"Invalid credentials"
     })
   }
-  const token = jwt.sign({ id: user._id }, "8a9595d9e2ed78c01480ebef20a541a4", {
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
   res.cookie("token",token);

@@ -5,6 +5,8 @@ const router = express();
 
 router.post("/createnote",AuthMiddleware,notesController.CreateNoteController)
 router.post("/updatenote/:id",AuthMiddleware,notesController.UpdateNoteController)
+router.post("/deletenote/:id",AuthMiddleware,notesController.DeleteNoteController)
+router.get("/fetchnote",AuthMiddleware,notesController.FetchUserNotesController)
 
 
 
