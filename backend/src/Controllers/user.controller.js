@@ -1,6 +1,7 @@
 import UserModel from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+// import cacheClient from "../services/cache.service.js";
 
 const UserRegisterController = async (req, res) => {
   try {
@@ -79,6 +80,7 @@ const UserLogoutController = async(req,res)=>{
             message:"token not found"
         })
     }    
+    // await cacheClient.set(token,"blacklisted");
     res.clearCookie("token");
     return res.status(200).json({
         message:"User logout successfully"

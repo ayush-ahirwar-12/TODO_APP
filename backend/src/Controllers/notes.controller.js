@@ -1,6 +1,7 @@
 import noteModel from "../models/notes.model.js";
 import UserModel from "../models/user.model.js";
 
+
 const CreateNoteController = async (req, res) => {
   try {
     const { content } = req.body;
