@@ -1,7 +1,6 @@
 import UserModel from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-// import cacheClient from "../services/cache.service.js";
 
 const UserRegisterController = async (req, res) => {
   try {
